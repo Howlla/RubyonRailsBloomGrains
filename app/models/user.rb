@@ -4,9 +4,6 @@ class User < ApplicationRecord
   has_many :orders
   has_secure_password
 
-  # Basic password validation, configure to your liking.
-  validates_length_of       :password, maximum: 72, minimum: 8, allow_nil: false, allow_blank: false
-  validates_confirmation_of :password, allow_nil: false, allow_blank: false
 
   before_validation {
     (self.email = self.email)

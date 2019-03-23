@@ -44,6 +44,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    authy (2.7.5)
+      httpclient (>= 2.5.3.3)
     bcrypt (3.1.12)
     builder (3.2.3)
     byebug (11.0.1)
@@ -55,6 +57,7 @@ GEM
     ffi (1.10.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    httpclient (2.8.3)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.8.0)
@@ -142,6 +145,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  authy
   bcrypt (~> 3.1.7)
   byebug
   jbuilder (~> 2.5)
@@ -157,4 +161,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.16.4
+   1.17.1

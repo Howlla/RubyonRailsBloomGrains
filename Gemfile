@@ -26,6 +26,7 @@ gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'knock'
 gem 'jwt'
+gem 'authy'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
