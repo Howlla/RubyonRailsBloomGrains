@@ -1,0 +1,2 @@
+class OrderSummary < ApplicationRecord
+end

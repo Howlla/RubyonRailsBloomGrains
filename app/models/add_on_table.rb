@@ -1,0 +1,2 @@
+class AddOnTable < ApplicationRecord
+end
