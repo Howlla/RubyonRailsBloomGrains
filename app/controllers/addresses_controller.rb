@@ -1,10 +1,11 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: [:show, :update, :destroy]
-
+  before_action :authenticate_user, only: [:index, :current, :update]
+  #before action authenticate user
   # GET /addresses
   # GET /addresses.json
   def index
-    @addresses = Address.all
+    @addresses = current_user.all
   end
 
   # GET /addresses/1
