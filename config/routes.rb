@@ -24,5 +24,9 @@ Rails.application.routes.draw do
     }
   end
 
-  resource :addresses
+  resource :addresses do
+    collection{
+      get :fetch
+    }
+  end
 end

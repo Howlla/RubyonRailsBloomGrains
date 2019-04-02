@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create([{email:'9205266153',name:"Bhavye", password:'12345678', password_confirmation:'12345678'},{email:'9891438414',name:"Ayush", password:'12345678', password_confirmation:'12345678'}])
+Product.create([{name:'Diamond',rate:55},{name:'Platinum',rate:45},{name:'Gold',rate:35}])
