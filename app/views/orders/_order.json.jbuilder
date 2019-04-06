@@ -2,6 +2,7 @@
 #json.url order_url(order, format: :json)
 
 json.id order.id
+json.price order.price
 json.user {
   user = order.user
   json.id user.id
@@ -15,3 +16,4 @@ json.address {
   json.line2 address.line2
   json.pin_code address.pin_code
 }
+json.status order.order_status

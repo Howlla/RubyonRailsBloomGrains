@@ -4681,3 +4681,1939 @@ Completed 201 Created in 112ms (Views: 22.6ms | ActiveRecord: 16.0ms)
 
 
   [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" ORDER BY "orders"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[36mOrder Load (2.3ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" ORDER BY "orders"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5342155080522985830)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddOrderStatusToOrder (20190402103641)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (23.4ms)[0m  [1m[35mALTER TABLE "orders" ADD "order_status" character varying DEFAULT 'pending'[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190402103641"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (3.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5342155080522985830)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/orders" for 127.0.0.1 at 2019-04-02 16:11:54 +0530
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1, "user_id"=>6}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "addons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "address_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 6], ["address_id", 1], ["created_at", "2019-04-02 10:41:54.563931"], ["updated_at", "2019-04-02 10:41:54.563931"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 100ms (ActiveRecord: 18.4ms)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'addons' for OrderSummary.):
+  
+app/controllers/orders_controller.rb:25:in `create'
+Started POST "/orders" for 127.0.0.1 at 2019-04-02 16:12:03 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1, "user_id"=>6}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.9ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "address_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 6], ["address_id", 1], ["created_at", "2019-04-02 10:42:03.844595"], ["updated_at", "2019-04-02 10:42:03.844595"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (4.5ms)[0m  [1m[32mINSERT INTO "order_summaries" ("order_id", "product_id", "quantity", "payment_mode", "add_ons", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["order_id", 4], ["product_id", 1], ["quantity", 3.0], ["payment_mode", "COD"], ["add_ons", "1#12$3#2$5#4"], ["created_at", "2019-04-02 10:42:03.850670"], ["updated_at", "2019-04-02 10:42:03.850670"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  Rendering orders/show.json.jbuilder
+  Rendered orders/_order.json.jbuilder (0.9ms)
+  Rendered orders/show.json.jbuilder (14.4ms)
+Completed 201 Created in 71ms (Views: 30.9ms | ActiveRecord: 20.2ms)
+
+
+  [1m[36mOrderSummary Load (0.5ms)[0m  [1m[34mSELECT  "order_summaries".* FROM "order_summaries" ORDER BY "order_summaries"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" ORDER BY "orders"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mOrder Load (0.6ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" ORDER BY "orders"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 3]]
+  [1m[36mOrder Load (0.6ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" ORDER BY "orders"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 3]]
+  [1m[36mOrder Load (0.6ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+Started GET "/orders" for 127.0.0.1 at 2019-04-02 16:19:18 +0530
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (14.6ms)
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.2ms)
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  Rendered orders/index.json.jbuilder (42.3ms)
+Completed 200 OK in 103ms (Views: 42.4ms | ActiveRecord: 12.6ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2019-04-02 16:21:06 +0530
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (0.7ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (0.8ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (16.0ms)
+  Rendered orders/index.json.jbuilder (20.3ms)
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 9.9ms)
+
+
+  
+ActionView::Template::Error (undefined method `status' for #<Order:0x00007f8ebbd66518>):
+    15:   json.line2 address.line2
+    16:   json.pin_code address.pin_code
+    17: }
+    18: json.status order.status
+  
+app/views/orders/_order.json.jbuilder:18:in `_app_views_orders__order_json_jbuilder__365865956251708467_70125508238840'
+app/views/orders/index.json.jbuilder:1:in `_app_views_orders_index_json_jbuilder__1304071739522403383_70125506694740'
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+Started GET "/orders" for 127.0.0.1 at 2019-04-02 16:22:03 +0530
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (23.2ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.3ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  Rendered orders/index.json.jbuilder (54.6ms)
+Completed 200 OK in 103ms (Views: 53.4ms | ActiveRecord: 13.0ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2019-04-05 12:09:13 +0530
+  [1m[35m (4.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (2.7ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (2.2ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (22.0ms)
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.6ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.3ms)
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.2ms)
+  Rendered orders/index.json.jbuilder (70.7ms)
+Completed 200 OK in 166ms (Views: 71.3ms | ActiveRecord: 34.5ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2019-04-05 12:10:32 +0530
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (0.8ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (1.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (4.7ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.3ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.3ms)
+  Rendered orders/index.json.jbuilder (21.4ms)
+Completed 200 OK in 59ms (Views: 23.9ms | ActiveRecord: 12.1ms)
+
+
+Started POST "//users" for 127.0.0.1 at 2019-04-05 12:12:17 +0530
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"name"=>"JohnDoe", "email"=>"8290688148", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (1.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (14.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "name", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "8290688148"], ["name", "JohnDoe"], ["password_digest", "$2a$10$TbBfUxmUeYcCeKOb/HGlSuN.qN41ZTn7vqapy2PoMiyJMZ1lZHeke"], ["created_at", "2019-04-05 06:42:17.731630"], ["updated_at", "2019-04-05 06:42:17.731630"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.65ms)
+Completed 200 OK in 138ms (Views: 14.0ms | ActiveRecord: 18.0ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-05 12:12:17 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"8290688148", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"8290688148", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "8290688148"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.11ms)
+Completed 201 Created in 87ms (Views: 2.7ms | ActiveRecord: 2.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:12:17 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (2.66ms)
+Completed 200 OK in 35ms (Views: 29.8ms | ActiveRecord: 2.2ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:12:21 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 2153ms (Views: 2.0ms | ActiveRecord: 1.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:13:00 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 4ms (Views: 1.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:13:04 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 2288ms (Views: 0.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:14:04 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.55ms)
+Completed 200 OK in 4ms (Views: 1.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:14:05 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 2246ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:16:00 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.81ms)
+Completed 200 OK in 7ms (Views: 1.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:16:03 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 1725ms (Views: 0.4ms | ActiveRecord: 3.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:22:37 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (6.53ms)
+Completed 200 OK in 45ms (Views: 29.0ms | ActiveRecord: 1.7ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:22:39 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (6.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 3912ms (Views: 4.7ms | ActiveRecord: 6.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:22:53 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.76ms)
+Completed 200 OK in 13ms (Views: 7.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:22:55 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 559ms (Views: 0.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:23:42 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.95ms)
+Completed 200 OK in 17ms (Views: 5.4ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:23:46 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 3605ms (Views: 5.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:24:23 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (6.52ms)
+Completed 200 OK in 15ms (Views: 9.6ms | ActiveRecord: 1.2ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:25:07 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (12.54ms)
+Completed 200 OK in 25ms (Views: 14.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:25:08 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 6446ms (Views: 0.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:26:54 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (11.71ms)
+Completed 200 OK in 52ms (Views: 18.8ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:26:55 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 3546ms (Views: 0.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:30:00 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.89ms)
+Completed 200 OK in 6ms (Views: 2.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:30:45 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.05ms)
+Completed 200 OK in 10ms (Views: 2.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:30:47 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 2161ms (Views: 0.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:32:14 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.88ms)
+Completed 200 OK in 6ms (Views: 1.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:32:29 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.84ms)
+Completed 200 OK in 9ms (Views: 3.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:33:18 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.84ms)
+Completed 200 OK in 7ms (Views: 1.9ms | ActiveRecord: 1.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:36:32 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.6ms)
+Completed 200 OK in 7ms (Views: 1.3ms | ActiveRecord: 2.6ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:36:37 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (2.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 4055ms (Views: 0.7ms | ActiveRecord: 2.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:38:10 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (2.66ms)
+Completed 200 OK in 12ms (Views: 3.7ms | ActiveRecord: 2.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:40:14 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.99ms)
+Completed 200 OK in 34ms (Views: 13.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:45:20 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (8.4ms)
+Completed 200 OK in 47ms (Views: 20.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:45:24 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 6501ms (Views: 1.3ms | ActiveRecord: 2.2ms)
+
+
+Started GET "//users/check_verification?verification_code=0" for 127.0.0.1 at 2019-04-05 12:45:40 +0530
+Processing by UsersController#check_verification as */*
+  Parameters: {"verification_code"=>"0"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 733ms (Views: 0.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:46:05 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (4.28ms)
+Completed 200 OK in 8ms (Views: 5.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:46:18 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 2226ms (Views: 0.5ms | ActiveRecord: 1.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:47:03 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.92ms)
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:47:13 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 7325ms (Views: 0.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:49:12 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.9ms)
+Completed 200 OK in 8ms (Views: 2.2ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:49:55 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 11006ms (Views: 0.3ms | ActiveRecord: 2.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:51:21 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.19ms)
+Completed 200 OK in 7ms (Views: 2.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:52:38 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.88ms)
+Completed 200 OK in 6ms (Views: 1.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:52:41 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.76ms)
+Completed 200 OK in 7ms (Views: 3.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:53:14 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.94ms)
+Completed 200 OK in 6ms (Views: 1.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-05 12:54:11 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 200 OK in 1949ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:54:13 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.81ms)
+Completed 200 OK in 9ms (Views: 1.8ms | ActiveRecord: 1.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:58:13 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.55ms)
+Completed 200 OK in 6ms (Views: 2.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 12:58:26 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.1ms)
+Completed 200 OK in 5ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:00:13 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.7ms)
+Completed 200 OK in 5ms (Views: 1.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:02:17 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (6.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.05ms)
+Completed 200 OK in 17ms (Views: 4.9ms | ActiveRecord: 6.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:02:36 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.67ms)
+Completed 200 OK in 39ms (Views: 12.7ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:04:43 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.69ms)
+Completed 200 OK in 4ms (Views: 1.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:04:47 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:06:27 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.11ms)
+Completed 200 OK in 5ms (Views: 2.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:07:02 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.76ms)
+Completed 200 OK in 6ms (Views: 1.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-05 13:08:01 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.82ms)
+Completed 200 OK in 7ms (Views: 1.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 03:38:39 +0530
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.0ms)
+Completed 200 OK in 234ms (Views: 122.6ms | ActiveRecord: 16.0ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 03:40:09 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9205266153"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.13ms)
+Completed 201 Created in 123ms (Views: 7.7ms | ActiveRecord: 15.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 03:40:10 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.34ms)
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 0.3ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 03:47:46 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9205266153"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.07ms)
+Completed 201 Created in 80ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 03:47:46 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.32ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/addresses/fetch" for 127.0.0.1 at 2019-04-06 03:59:41 +0530
+Processing by AddressesController#fetch as */*
+  Parameters: {"address"=>{}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (2.6ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.11ms)
+Completed 200 OK in 80ms (Views: 48.8ms | ActiveRecord: 12.1ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 04:22:16 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9205266153"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.71ms)
+Completed 201 Created in 100ms (Views: 4.6ms | ActiveRecord: 1.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:22:16 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.89ms)
+Completed 200 OK in 8ms (Views: 3.7ms | ActiveRecord: 1.2ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:22:42 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.97ms)
+Completed 200 OK in 8ms (Views: 2.6ms | ActiveRecord: 1.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:22:53 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.87ms)
+Completed 200 OK in 5ms (Views: 1.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:26:03 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.38ms)
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:28:39 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (12.95ms)
+Completed 200 OK in 61ms (Views: 18.8ms | ActiveRecord: 1.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:28:49 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.5ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:29:39 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.16ms)
+Completed 200 OK in 9ms (Views: 6.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:30:32 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.73ms)
+Completed 200 OK in 17ms (Views: 2.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:32:39 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.04ms)
+Completed 200 OK in 13ms (Views: 1.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:32:51 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.63ms)
+Completed 200 OK in 9ms (Views: 1.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:35:08 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.05ms)
+Completed 200 OK in 11ms (Views: 6.7ms | ActiveRecord: 1.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:37:55 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (12.18ms)
+Completed 200 OK in 39ms (Views: 16.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:39:02 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.0ms)
+Completed 200 OK in 18ms (Views: 6.1ms | ActiveRecord: 1.3ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 04:39:39 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"data"=>{"line1"=>"Malviya Nagar, C-14", "line2"=>"Basement", "pin_code"=>"110016"}, "address"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+Completed 400 Bad Request in 6ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: address):
+  
+app/controllers/addresses_controller.rb:60:in `address_params'
+app/controllers/addresses_controller.rb:26:in `create'
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:40:10 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.71ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 04:40:52 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"address"=>{"line1"=>"C-14,Malviya Nagar", "line2"=>"Basement", "pin_code"=>"110017"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (2.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (15.7ms)[0m  [1m[32mINSERT INTO "addresses" ("line1", "line2", "pin_code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["line1", "C-14,Malviya Nagar"], ["line2", "Basement"], ["pin_code", "110017"], ["user_id", 6], ["created_at", "2019-04-05 23:10:52.115579"], ["updated_at", "2019-04-05 23:10:52.115579"]]
+  [1m[35m (3.0ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Address (0.64ms)
+Completed 200 OK in 32ms (Views: 1.5ms | ActiveRecord: 21.2ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 04:40:52 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"address"=>{"line1"=>"C-14,Malviya Nagar", "line2"=>"Basement", "pin_code"=>"110017"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "addresses" ("line1", "line2", "pin_code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["line1", "C-14,Malviya Nagar"], ["line2", "Basement"], ["pin_code", "110017"], ["user_id", 6], ["created_at", "2019-04-05 23:10:52.269096"], ["updated_at", "2019-04-05 23:10:52.269096"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Address (0.36ms)
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 3.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:54:53 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.38ms)
+Completed 200 OK in 34ms (Views: 12.4ms | ActiveRecord: 2.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 04:55:30 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.87ms)
+Completed 200 OK in 7ms (Views: 1.9ms | ActiveRecord: 1.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:00:38 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.74ms)
+Completed 200 OK in 35ms (Views: 15.1ms | ActiveRecord: 1.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:00:38 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (8.73ms)
+Completed 200 OK in 35ms (Views: 23.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:02:58 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 7ms (Views: 1.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:02:58 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.48ms)
+Completed 200 OK in 8ms (Views: 4.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:03:07 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.34ms)
+Completed 200 OK in 60ms (Views: 57.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:03:07 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.7ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.87ms)
+Completed 200 OK in 10ms (Views: 5.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:07:33 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (4.21ms)
+Completed 200 OK in 35ms (Views: 10.5ms | ActiveRecord: 1.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:07:33 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.9ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (5.36ms)
+Completed 200 OK in 33ms (Views: 22.3ms | ActiveRecord: 2.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:07:43 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.17ms)
+Completed 200 OK in 7ms (Views: 2.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:07:43 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.67ms)
+Completed 200 OK in 12ms (Views: 6.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:08:17 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.63ms)
+Completed 200 OK in 4ms (Views: 1.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:08:17 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.65ms)
+Completed 200 OK in 10ms (Views: 6.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:09:05 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 4ms (Views: 1.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:09:05 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.8ms)
+Completed 200 OK in 11ms (Views: 8.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:10:35 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.06ms)
+Completed 200 OK in 36ms (Views: 11.8ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:10:36 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.23ms)
+Completed 200 OK in 20ms (Views: 11.4ms | ActiveRecord: 1.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:11:41 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.75ms)
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:11:41 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.96ms)
+Completed 200 OK in 13ms (Views: 9.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:12:31 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (4.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.67ms)
+Completed 200 OK in 12ms (Views: 1.5ms | ActiveRecord: 4.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:12:31 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.3ms)
+Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.9ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 05:13:00 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"address"=>{"line1"=>"MAIT,Rohini", "line2"=>"Sector 22", "pin_code"=>"110017"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (2.4ms)[0m  [1m[32mINSERT INTO "addresses" ("line1", "line2", "pin_code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["line1", "MAIT,Rohini"], ["line2", "Sector 22"], ["pin_code", "110017"], ["user_id", 6], ["created_at", "2019-04-05 23:43:00.041245"], ["updated_at", "2019-04-05 23:43:00.041245"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Address (0.36ms)
+Completed 200 OK in 46ms (Views: 1.2ms | ActiveRecord: 4.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:13:00 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (0.98ms)
+Completed 200 OK in 5ms (Views: 3.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:26:29 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (9.3ms)
+Completed 200 OK in 44ms (Views: 19.3ms | ActiveRecord: 1.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:26:29 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.1ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.97ms)
+Completed 200 OK in 37ms (Views: 24.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:29:27 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.91ms)
+Completed 200 OK in 5ms (Views: 1.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:29:27 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (4.2ms)
+Completed 200 OK in 15ms (Views: 10.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:29:55 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.5ms)
+Completed 200 OK in 3ms (Views: 1.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:29:55 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (4.53ms)
+Completed 200 OK in 14ms (Views: 10.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:30:11 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.62ms)
+Completed 200 OK in 4ms (Views: 1.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:30:11 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.7ms)
+Completed 200 OK in 11ms (Views: 7.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:33:53 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.68ms)
+Completed 200 OK in 4ms (Views: 1.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:33:53 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.37ms)
+Completed 200 OK in 11ms (Views: 7.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:34:07 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (4.78ms)
+Completed 200 OK in 34ms (Views: 10.0ms | ActiveRecord: 2.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:34:07 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.6ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.18ms)
+Completed 200 OK in 35ms (Views: 18.5ms | ActiveRecord: 2.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:37:14 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (43.37ms)
+Completed 200 OK in 47ms (Views: 44.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:37:14 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.7ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (8.7ms)
+Completed 200 OK in 16ms (Views: 12.5ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:37:36 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.54ms)
+Completed 200 OK in 4ms (Views: 1.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:37:36 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.93ms)
+Completed 200 OK in 8ms (Views: 5.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:38:04 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.55ms)
+Completed 200 OK in 4ms (Views: 1.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:38:04 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (5.7ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.73ms)
+Completed 200 OK in 14ms (Views: 5.1ms | ActiveRecord: 6.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:38:31 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.66ms)
+Completed 200 OK in 6ms (Views: 1.4ms | ActiveRecord: 1.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:38:31 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.71ms)
+Completed 200 OK in 12ms (Views: 6.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:40:40 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.82ms)
+Completed 200 OK in 9ms (Views: 5.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:40:40 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (11.5ms)
+Completed 200 OK in 30ms (Views: 23.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:41:01 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.64ms)
+Completed 200 OK in 8ms (Views: 2.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:41:01 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (11.54ms)
+Completed 200 OK in 26ms (Views: 19.2ms | ActiveRecord: 4.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:41:05 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:41:05 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (6.63ms)
+Completed 200 OK in 21ms (Views: 13.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:41:12 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 6ms (Views: 3.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:41:12 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.52ms)
+Completed 200 OK in 34ms (Views: 6.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:42:47 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.11ms)
+Completed 200 OK in 7ms (Views: 2.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:42:47 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.75ms)
+Completed 200 OK in 8ms (Views: 5.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:43:03 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:43:03 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.72ms)
+Completed 200 OK in 9ms (Views: 5.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:43:09 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:43:09 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.47ms)
+Completed 200 OK in 8ms (Views: 4.2ms | ActiveRecord: 1.2ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:45:05 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.61ms)
+Completed 200 OK in 4ms (Views: 1.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:45:05 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.65ms)
+Completed 200 OK in 8ms (Views: 5.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 05:45:18 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.05ms)
+Completed 200 OK in 5ms (Views: 1.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 05:45:19 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.06ms)
+Completed 200 OK in 9ms (Views: 5.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:03:57 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (6.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (10.04ms)
+Completed 200 OK in 78ms (Views: 16.4ms | ActiveRecord: 6.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:03:57 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (7.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.6ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.82ms)
+Completed 200 OK in 39ms (Views: 20.1ms | ActiveRecord: 7.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:04:11 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.71ms)
+Completed 200 OK in 5ms (Views: 2.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:04:12 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (64.51ms)
+Completed 200 OK in 72ms (Views: 68.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:04:47 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.47ms)
+Completed 200 OK in 3ms (Views: 1.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:04:47 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.62ms)
+Completed 200 OK in 8ms (Views: 4.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:09:53 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (5.14ms)
+Completed 200 OK in 33ms (Views: 11.4ms | ActiveRecord: 1.8ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:09:53 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.6ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.3ms)
+Completed 200 OK in 19ms (Views: 12.0ms | ActiveRecord: 1.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:10:58 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.3ms)
+Completed 200 OK in 7ms (Views: 2.5ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:10:58 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.03ms)
+Completed 200 OK in 11ms (Views: 7.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:12:04 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.69ms)
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:12:04 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.45ms)
+Completed 200 OK in 13ms (Views: 8.3ms | ActiveRecord: 1.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:12:49 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.62ms)
+Completed 200 OK in 8ms (Views: 2.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:12:49 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.8ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.36ms)
+Completed 200 OK in 12ms (Views: 7.2ms | ActiveRecord: 1.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:13:06 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.82ms)
+Completed 200 OK in 10ms (Views: 1.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:13:07 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.8ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.66ms)
+Completed 200 OK in 13ms (Views: 7.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:13:16 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.67ms)
+Completed 200 OK in 5ms (Views: 1.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:13:17 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (4.47ms)
+Completed 200 OK in 13ms (Views: 9.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:13:46 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.67ms)
+Completed 200 OK in 6ms (Views: 3.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:13:46 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.36ms)
+Completed 200 OK in 11ms (Views: 6.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:14:09 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.65ms)
+Completed 200 OK in 4ms (Views: 1.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:14:09 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.7ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.39ms)
+Completed 200 OK in 13ms (Views: 9.4ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:14:16 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.64ms)
+Completed 200 OK in 4ms (Views: 1.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:14:16 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.0ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.47ms)
+Completed 200 OK in 11ms (Views: 6.5ms | ActiveRecord: 1.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:16:06 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.54ms)
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:16:06 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.96ms)
+Completed 200 OK in 8ms (Views: 5.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:18:08 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.33ms)
+Completed 200 OK in 5ms (Views: 2.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:18:09 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.5ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.64ms)
+Completed 200 OK in 27ms (Views: 16.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:19:14 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (4.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.61ms)
+Completed 200 OK in 11ms (Views: 1.5ms | ActiveRecord: 4.7ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:19:14 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (1.7ms)
+Completed 200 OK in 7ms (Views: 4.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:19:38 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (6.28ms)
+Completed 200 OK in 57ms (Views: 19.7ms | ActiveRecord: 2.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:19:39 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.2ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.02ms)
+Completed 200 OK in 32ms (Views: 16.5ms | ActiveRecord: 2.3ms)
+
+
+Started POST "//users" for 127.0.0.1 at 2019-04-06 14:20:49 +0530
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"name"=>"JohnDoe", "email"=>"9810407114", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (3.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (18.0ms)[0m  [1m[32mINSERT INTO "users" ("email", "name", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "9810407114"], ["name", "JohnDoe"], ["password_digest", "$2a$10$Hnmol2pw2xuLNHqz8jXoQeK0SV0IeyGlOvggnMyJv864SGFvNqr5u"], ["created_at", "2019-04-06 08:50:49.798434"], ["updated_at", "2019-04-06 08:50:49.798434"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 132ms (Views: 9.3ms | ActiveRecord: 23.3ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:20:49 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.14ms)
+Completed 201 Created in 91ms (Views: 1.4ms | ActiveRecord: 4.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:20:49 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.34ms)
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:20:49 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1580ms (Views: 3.8ms | ActiveRecord: 1.0ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:23:55 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.09ms)
+Completed 201 Created in 80ms (Views: 0.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:23:56 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.61ms)
+Completed 200 OK in 4ms (Views: 1.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:23:56 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1089ms (Views: 0.5ms | ActiveRecord: 1.5ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:30:32 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (1.36ms)
+Completed 201 Created in 242ms (Views: 8.6ms | ActiveRecord: 4.0ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:30:32 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (6.3ms)
+Completed 200 OK in 16ms (Views: 8.1ms | ActiveRecord: 1.3ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:30:32 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1455ms (Views: 0.8ms | ActiveRecord: 4.0ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:31:16 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.2ms)
+Completed 201 Created in 180ms (Views: 1.1ms | ActiveRecord: 1.1ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:31:16 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.33ms)
+Completed 200 OK in 6ms (Views: 2.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:31:16 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1482ms (Views: 0.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/check_verification?verification_code=1608" for 127.0.0.1 at 2019-04-06 14:32:13 +0530
+Processing by UsersController#check_verification as */*
+  Parameters: {"verification_code"=>"1608"}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1475ms (Views: 137.2ms | ActiveRecord: 1.7ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:33:25 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.28ms)
+Completed 201 Created in 161ms (Views: 1.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:33:25 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.68ms)
+Completed 200 OK in 5ms (Views: 1.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:33:25 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1300ms (Views: 0.4ms | ActiveRecord: 3.0ms)
+
+
+Started GET "//users/check_verification?verification_code=1608" for 127.0.0.1 at 2019-04-06 14:33:30 +0530
+Processing by UsersController#check_verification as */*
+  Parameters: {"verification_code"=>"1608"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 274ms (Views: 0.5ms | ActiveRecord: 0.8ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:33:51 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.13ms)
+Completed 201 Created in 197ms (Views: 1.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:33:51 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.64ms)
+Completed 200 OK in 9ms (Views: 1.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 14:33:51 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (39.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+Completed 200 OK in 1177ms (Views: 0.4ms | ActiveRecord: 39.6ms)
+
+
+Started GET "//users/check_verification?verification_code=8125" for 127.0.0.1 at 2019-04-06 14:33:57 +0530
+Processing by UsersController#check_verification as */*
+  Parameters: {"verification_code"=>"8125"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (11.1ms)[0m  [1m[33mUPDATE "users" SET "is_verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["is_verified", "t"], ["updated_at", "2019-04-06 09:03:58.194197"], ["id", 11]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 330ms (Views: 0.4ms | ActiveRecord: 14.3ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 14:35:25 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9810407114", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9810407114"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.16ms)
+Completed 201 Created in 183ms (Views: 2.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 14:35:25 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.68ms)
+Completed 200 OK in 4ms (Views: 1.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:35:25 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mAddress Load (6.2ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 11]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 26ms (Views: 13.9ms | ActiveRecord: 6.8ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 14:36:39 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"address"=>{"line1"=>"C-551,Sheikh Sarai Phase-1", "line2"=>"SFS flats New Delhi", "pin_code"=>"110017"}}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "addresses" ("line1", "line2", "pin_code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["line1", "C-551,Sheikh Sarai Phase-1"], ["line2", "SFS flats New Delhi"], ["pin_code", "110017"], ["user_id", 11], ["created_at", "2019-04-06 09:06:39.095454"], ["updated_at", "2019-04-06 09:06:39.095454"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Address (2.58ms)
+Completed 200 OK in 69ms (Views: 9.9ms | ActiveRecord: 6.5ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 14:36:39 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.7ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 11]]
+No serializer found for resource: #<Address id: 7, line1: "C-551,Sheikh Sarai Phase-1", line2: "SFS flats New Delhi", pin_code: "110017", user_id: 11, created_at: "2019-04-06 09:06:39", updated_at: "2019-04-06 09:06:39">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (0.68ms)
+Completed 200 OK in 13ms (Views: 7.3ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2019-04-06 15:47:45 +0530
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (3.3ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (44.3ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.5ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.0ms)
+  Rendered orders/index.json.jbuilder (104.9ms)
+Completed 200 OK in 169ms (Views: 107.1ms | ActiveRecord: 74.1ms)
+
+
+Started POST "//users" for 127.0.0.1 at 2019-04-06 15:48:44 +0530
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"name"=>"JohnDoe", "email"=>"9650384701", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (3.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (8.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "name", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "9650384701"], ["name", "JohnDoe"], ["password_digest", "$2a$10$50PeZ6nWn2Eu9K2.jj/mEeo3N/oUJegt0BFUnXw/vBsxvuVvBMLY6"], ["created_at", "2019-04-06 10:18:44.472997"], ["updated_at", "2019-04-06 10:18:44.472997"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 120ms (Views: 8.7ms | ActiveRecord: 13.3ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 15:48:44 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9650384701", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9650384701", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9650384701"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.12ms)
+Completed 201 Created in 93ms (Views: 10.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 15:48:44 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.71ms)
+Completed 200 OK in 6ms (Views: 4.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 15:48:44 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+Completed 200 OK in 1982ms (Views: 2.6ms | ActiveRecord: 2.6ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 15:49:40 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9650384701", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9650384701", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9650384701"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.12ms)
+Completed 201 Created in 81ms (Views: 0.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 15:49:41 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.38ms)
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "//users/start_verification" for 127.0.0.1 at 2019-04-06 15:49:41 +0530
+Processing by UsersController#start_verification as */*
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+Completed 200 OK in 1057ms (Views: 0.4ms | ActiveRecord: 2.4ms)
+
+
+Started GET "//users/check_verification?verification_code=1880" for 127.0.0.1 at 2019-04-06 15:49:52 +0530
+Processing by UsersController#check_verification as */*
+  Parameters: {"verification_code"=>"1880"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (7.3ms)[0m  [1m[33mUPDATE "users" SET "is_verified" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["is_verified", "t"], ["updated_at", "2019-04-06 10:19:52.574321"], ["id", 12]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 359ms (Views: 0.3ms | ActiveRecord: 9.7ms)
+
+
+Started POST "//user_token" for 127.0.0.1 at 2019-04-06 15:52:13 +0530
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"9205266153", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "9205266153"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.07ms)
+Completed 201 Created in 81ms (Views: 0.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 15:52:13 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.53ms)
+Completed 200 OK in 3ms (Views: 1.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 15:52:13 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.2ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (3.05ms)
+Completed 200 OK in 32ms (Views: 24.5ms | ActiveRecord: 1.9ms)
+
+
+Started POST "//addresses" for 127.0.0.1 at 2019-04-06 15:53:12 +0530
+Processing by AddressesController#create as */*
+  Parameters: {"address"=>{"line1"=>"Mohan Estate, 2019 Road 3", "line2"=>"Delhi", "pin_code"=>"110017"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "addresses" ("line1", "line2", "pin_code", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["line1", "Mohan Estate, 2019 Road 3"], ["line2", "Delhi"], ["pin_code", "110017"], ["user_id", 6], ["created_at", "2019-04-06 10:23:12.192217"], ["updated_at", "2019-04-06 10:23:12.192217"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Address (0.31ms)
+Completed 200 OK in 8ms (Views: 0.9ms | ActiveRecord: 2.3ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 15:53:12 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.89ms)
+Completed 200 OK in 7ms (Views: 5.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "//users/me" for 127.0.0.1 at 2019-04-06 16:02:36 +0530
+Processing by UsersController#me as */*
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (1.53ms)
+Completed 200 OK in 14ms (Views: 4.5ms | ActiveRecord: 1.6ms)
+
+
+Started GET "//addresses/fetch" for 127.0.0.1 at 2019-04-06 16:02:36 +0530
+Processing by AddressesController#fetch as */*
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.8ms)[0m  [1m[34mSELECT "addresses".* FROM "addresses" WHERE "addresses"."user_id" = $1[0m  [["user_id", 6]]
+No serializer found for resource: #<Address id: 1, line1: "C-551,Sheikh Sarai", line2: "New Delhi", pin_code: "110017", user_id: 6, created_at: "2019-04-01 22:03:32", updated_at: "2019-04-01 22:03:32">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Address::ActiveRecord_Associations_CollectionProxy (2.67ms)
+Completed 200 OK in 12ms (Views: 7.1ms | ActiveRecord: 1.7ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:22:49 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAddress Load (1.1ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (2.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.57ms)
+Completed 422 Unprocessable Entity in 137ms (Views: 17.3ms | ActiveRecord: 4.8ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:23:00 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1, "user_id"=>5}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mAddress Load (2.9ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (3.5ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "address_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 5], ["address_id", 1], ["created_at", "2019-04-06 10:53:00.656399"], ["updated_at", "2019-04-06 10:53:00.656399"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (11.8ms)[0m  [1m[32mINSERT INTO "order_summaries" ("order_id", "product_id", "quantity", "payment_mode", "add_ons", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["order_id", 5], ["product_id", 1], ["quantity", 3.0], ["payment_mode", "COD"], ["add_ons", "1#12$3#2$5#4"], ["created_at", "2019-04-06 10:53:00.732980"], ["updated_at", "2019-04-06 10:53:00.732980"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  Rendering orders/show.json.jbuilder
+  Rendered orders/_order.json.jbuilder (1.6ms)
+  Rendered orders/show.json.jbuilder (7.0ms)
+Completed 201 Created in 131ms (Views: 21.0ms | ActiveRecord: 50.6ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:23:22 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1, "user_id"=>2}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "address_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 2], ["address_id", 1], ["created_at", "2019-04-06 10:53:22.373232"], ["updated_at", "2019-04-06 10:53:22.373232"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.5ms)[0m  [1m[32mINSERT INTO "order_summaries" ("order_id", "product_id", "quantity", "payment_mode", "add_ons", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["order_id", 6], ["product_id", 1], ["quantity", 3.0], ["payment_mode", "COD"], ["add_ons", "1#12$3#2$5#4"], ["created_at", "2019-04-06 10:53:22.378097"], ["updated_at", "2019-04-06 10:53:22.378097"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  Rendering orders/show.json.jbuilder
+  Rendered orders/_order.json.jbuilder (0.6ms)
+  Rendered orders/show.json.jbuilder (2.7ms)
+Completed 201 Created in 23ms (Views: 7.0ms | ActiveRecord: 7.2ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:24:20 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.12ms)
+Completed 422 Unprocessable Entity in 8ms (Views: 2.5ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:24:46 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 85ms (ActiveRecord: 16.3ms)
+
+
+  
+NoMethodError (undefined method `user_id' for #<User:0x00007f86a140a590>):
+  
+app/controllers/orders_controller.rb:19:in `create'
+Started POST "/orders" for 127.0.0.1 at 2019-04-06 16:25:06 +0530
+Processing by OrdersController#create as */*
+  Parameters: {"order"=>{"address_id"=>1}, "order_summary"=>{"product_id"=>1, "quantity"=>3, "add_ons"=>"1#12$3#2$5#4", "payment_mode"=>"COD"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (2.3ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "address_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 6], ["address_id", 1], ["created_at", "2019-04-06 10:55:06.818427"], ["updated_at", "2019-04-06 10:55:06.818427"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (4.1ms)[0m  [1m[32mINSERT INTO "order_summaries" ("order_id", "product_id", "quantity", "payment_mode", "add_ons", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["order_id", 7], ["product_id", 1], ["quantity", 3.0], ["payment_mode", "COD"], ["add_ons", "1#12$3#2$5#4"], ["created_at", "2019-04-06 10:55:06.838542"], ["updated_at", "2019-04-06 10:55:06.838542"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  Rendering orders/show.json.jbuilder
+  Rendered orders/_order.json.jbuilder (0.6ms)
+  Rendered orders/show.json.jbuilder (3.8ms)
+Completed 201 Created in 99ms (Views: 10.2ms | ActiveRecord: 17.7ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2019-04-06 16:25:53 +0530
+Processing by OrdersController#index as */*
+  Parameters: {"order"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  Rendering orders/index.json.jbuilder
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = $1[0m  [["user_id", 6]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.9ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.0ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.0ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.0ms)
+  [1m[36mCACHE Address Load (0.0ms)[0m  [1m[34mSELECT  "addresses".* FROM "addresses" WHERE "addresses"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered orders/_order.json.jbuilder (1.4ms)
+  Rendered orders/index.json.jbuilder (17.7ms)
+Completed 200 OK in 29ms (Views: 21.1ms | ActiveRecord: 1.1ms)
+
+
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5342155080522985830)[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddPriceFieldToOrderSummary (20190406110414)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.4ms)[0m  [1m[35mALTER TABLE "orders" ADD "price" float[0m
+  [1m[35mSQL (1.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190406110414"]]
+  [1m[35m (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5342155080522985830)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m

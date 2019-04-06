@@ -16,8 +16,15 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-
+    @order.user_id = current_user.id
+    #Here you're trying to save the order. if its successful, you now have and order_id.
     if @order.save
+      #successful
+      #Here you're just permitting the :order_summary key in the call. This *should* work. IIRC.
+      params[:order_summary].permit!
+      order_summary = OrderSummary.new(params[:order_summary])
+      order_summary.order_id = @order.id
+      order_summary.save
       render :show, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
@@ -41,6 +48,17 @@ class OrdersController < ApplicationController
   end
 
   private
+    # add on map
+
+    # add_on_price = {
+    #   '1': 0.4,
+    #   '2': 0,
+    # }
+
+    # def get_price(product_id, quantity, add_on)
+
+    # end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
