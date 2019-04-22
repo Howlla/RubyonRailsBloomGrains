@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
       order_summary = OrderSummary.new(params[:order_summary])
       order_summary.order_id = @order.id
       order_summary.save
+      @order.price = get_price(order_summary.product_id,order_summary.quantity.to_i,order_summary.add_ons)
+      @order.save
       render :show, status: :created, location: @order
     else
       render json: @order.errors, status: :unprocessable_entity
@@ -49,15 +51,61 @@ class OrdersController < ApplicationController
 
   private
     # add on map
-
-    # add_on_price = {
-    #   '1': 0.4,
-    #   '2': 0,
+    # $product_price={
+    #   '1':35.0,
+    #   '2':45.0,
+    #   '3':55.0
+    # }
+    # $add_on_price = {
+    #   '1': 0.4, #millets
+    #   '2': 0.7, #soyabean
+    #   '3': 0.7, #chickpeas
+    #   '4': 0.75, #sorghum
+    #   '5': 1.7, #oats
+    #   '6': 1, #corn
+    #   '7': 4, #quinua
+    #   '8': 0.5, #barley
+    #   '9':0.5, #riceflour
+    #   '10':10,  #paniphal
+    #   '11':8, #lapsi
+    #   '12':0.2 #Rye
     # }
 
-    # def get_price(product_id, quantity, add_on)
+    def get_price(product_id, quantity, add_on)
+      product_price={
+        '1':55.0, #DIAMOND
+        '2':45.0, #PLATINUM
+        '3':35.0 #GOLD
+      }
+      add_on_price = {
+        '1': 0.4, #millets
+        '2': 0.7, #soyabean
+        '3': 0.7, #chickpeas
+        '4': 0.75, #sorghum
+        '5': 1.7, #oats
+        '6': 1, #corn
+        '7': 4, #quinua
+        '8': 0.5, #barley
+        '9':0.5, #riceflour
+        '10':10,  #paniphal
+        '11':8, #lapsi
+        '12':0.2 #Rye
+      }
+     orderArray = add_on.split('#')
+     price=0;
 
-    # end
+     basePrice = orderArray[0].to_i * product_price[:"#{product_id}"]*quantity/100;    #x[0] is wheat percentage
+     addonPrice=0
+     i=1;
+     while i<orderArray.length 
+      temp = orderArray[i].split('$')
+      addonPrice += add_on_price[:"#{temp[0]}"] * temp[1].to_i
+      i=i+1
+     end
+     addonPrice=addonPrice*quantity
+     price = basePrice + addonPrice
+     return price
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_order
