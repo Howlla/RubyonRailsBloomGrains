@@ -4,7 +4,11 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = current_user.orders
+    if current_user.admin?
+      @orders = Order.all
+    else
+      @orders = current_user.orders
+    end
   end
 
   # GET /orders/1
@@ -15,10 +19,13 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    if current_user.orders.count!=0 && current_user.orders.last.order_status=='pending'
+      render json: current_user.orders.last.order_summary, status: :not_acceptable
+    else
     @order = Order.new(order_params)
     @order.user_id = current_user.id
     #Here you're trying to save the order. if its successful, you now have and order_id.
-    if @order.save
+      if @order.save
       #successful
       #Here you're just permitting the :order_summary key in the call. This *should* work. IIRC.
       params[:order_summary].permit!
@@ -28,8 +35,9 @@ class OrdersController < ApplicationController
       @order.price = get_price(order_summary.product_id,order_summary.quantity.to_i,order_summary.add_ons)
       @order.save
       render :show, status: :created, location: @order
-    else
+      else
       render json: @order.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -50,26 +58,6 @@ class OrdersController < ApplicationController
   end
 
   private
-    # add on map
-    # $product_price={
-    #   '1':35.0,
-    #   '2':45.0,
-    #   '3':55.0
-    # }
-    # $add_on_price = {
-    #   '1': 0.4, #millets
-    #   '2': 0.7, #soyabean
-    #   '3': 0.7, #chickpeas
-    #   '4': 0.75, #sorghum
-    #   '5': 1.7, #oats
-    #   '6': 1, #corn
-    #   '7': 4, #quinua
-    #   '8': 0.5, #barley
-    #   '9':0.5, #riceflour
-    #   '10':10,  #paniphal
-    #   '11':8, #lapsi
-    #   '12':0.2 #Rye
-    # }
 
     def get_price(product_id, quantity, add_on)
       product_price={
